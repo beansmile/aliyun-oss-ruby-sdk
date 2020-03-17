@@ -33,11 +33,11 @@ gemspec = Gem::Specification::load(
 Gem::PackageTask.new(gemspec) do |pkg|
 end
 
-Rake::ExtensionTask.new('crcx', gemspec) do |ext|
-  ext.name = 'crcx'
-  ext.ext_dir = 'ext/crcx'
-  ext.lib_dir = 'lib/aliyun'
-end
+# Rake::ExtensionTask.new('crcx', gemspec) do |ext|
+#   ext.name = 'crcx'
+#   ext.ext_dir = 'ext/crcx'
+#   ext.lib_dir = 'lib/aliyun'
+# end
 
 Rake::TestTask.new do |t|
   t.pattern = "tests/**/test_*.rb"

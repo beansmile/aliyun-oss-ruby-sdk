@@ -4,6 +4,7 @@ require 'time'
 require 'base64'
 require 'openssl'
 require 'digest/md5'
+require 'crc'
 
 module Aliyun
   module OSS
@@ -78,12 +79,12 @@ module Aliyun
 
         # Get a crc value of the data
         def crc(data, init_crc = 0)
-          CrcX::crc64(init_crc, data, data.size)
+          CRC.crc64_xz(data, init_crc)
         end
 
-        # Calculate a value of the crc1 combine with crc2. 
+        # Calculate a value of the crc1 combine with crc2.
         def crc_combine(crc1, crc2, len2)
-          CrcX::crc64_combine(crc1, crc2, len2)
+          CRC.crc64_xz.combine(crc1, crc2, len2)
         end
 
         def crc_check(crc_a, crc_b, operation)
@@ -97,7 +98,7 @@ module Aliyun
           unless (name =~ %r|^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$|)
             fail ClientError, "The bucket name is invalid."
           end
-        end  
+        end
 
       end # self
     end # Util
